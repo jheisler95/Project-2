@@ -1,0 +1,16 @@
+General Work Flow: Python Flask -powered API will be used to gather data from the supercharger.
+info page on new/existing charging stations based on location, number of stalls, status, and open date. 
+Additional data on Tesla’s stock and the number of opened dealerships that will need to be found.
+SQL will be the database that houses our API-gathered data. 
+This format will make it easier to reference and load into our JavaScript and HTML visualizations. 
+We must make sure that our SQL databases are appropriately configured not to compromise data structure. 
+Javascript will be our primary static tool to load our retrieved data from SQL and to set up our visualizations. 
+Some ideas for visualizations include changes in Stock Price, Charging Stations, and Dealerships over time.  
+Ideally, these visualizations will be interactive to the user by filtering the charts by state, region, and possibly year.  
+HTML and CSS will be used to generate and style our webpage that not only hosts
+
+Elon Musk: Madman or Genius
+
+It was using tesla tech to move the company into the future. Does this push mean Elon is spending money that isn’t there or driving the stock up?
+
+Stock vs. Dealerships and Charging ports opening up.
