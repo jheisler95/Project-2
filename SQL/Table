@@ -1,0 +1,9 @@
+create table supercharged(
+	ID serial Primary Key,
+	Country varchar,
+	City varchar,
+	Status varchar,
+	open_date date,
+	Lat decimal,
+	Long decimal
+)
