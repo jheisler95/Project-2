@@ -7,3 +7,9 @@ create table supercharged(
 	Lat decimal,
 	Long decimal
 )
+
+create table tsla(
+	ID serial Primary Key,
+	date date,
+	close decimal
+)
