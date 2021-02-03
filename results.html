@@ -18,7 +18,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.html">Home</a>
+        <a class="navbar-brand" href="index.html">Latitude</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -28,17 +28,17 @@
     
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Progression
+                Plots
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="disc_data.html">Discovering Data</a>
-                <a class="dropdown-item" href="seq_sql.html">Sequestering SQL</a>
-                <a class="dropdown-item" href="find_flask.html">Finding Flask</a>
-                <a class="dropdown-item" href="jiv_java.html">Jiving w/ Javascript</a>
+                <a class="dropdown-item" href="vis_page_1.html">Maximum Temperature</a>
+                <a class="dropdown-item" href="vis_page_2.html">Humidity</a>
+                <a class="dropdown-item" href="vis_page_3.html">Cloudiness</a>
+                <a class="dropdown-item" href="vis_page_4.html">Wind Speed</a>
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="results.html">Results</a>
+              <a class="nav-link" href="comparison_page.html">Comparison</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="data_page.html">Data</a>
@@ -46,27 +46,41 @@
           </ul>
         </div>
       </nav>
-    <div class="container">
+  <div class="container">
+    <br>
+    <div class="row">
+      <div class="col col-12">
+        <br>
+        <h1>Comparison: Latitude vs. X</h1>
+        <hr>
+        <p>Click any plot to get an in-depth analysis.</p>
         <div class="row">
-            <div class="col-md-12">
-                <h1>
-                    Supercharger Data
-                </h1>
-                <hr>
-                <!--Insert Charger Data Table HTML Code Here-->
-                <hr>
-            </div>
+          <div class="col col-12 col-md-6">
+            <h3>vs. Max Temperature</h3> 
+            <a href="vis_page_1.html"><img src="/Users/brianroberts1/Documents/GitHub/Web_Design_Challenge/Visualizations/Fig1.png" alt="" width="80%" height="80%"></a>
+          </div>
+          <div class="col col-12 col-md-6">
+            <h3>vs. Humidity</h3> 
+            <a href="vis_page_2.html"><img src="/Users/brianroberts1/Documents/GitHub/Web_Design_Challenge/Visualizations/Fig2.png" alt="" width="80%" height="80%"></a>
+          </div>
+          <div class="col col-12 col-md-6">
+            <h3>vs. Cloudiness</h3> 
+            <a href="vis_page_3.html"><img src="/Users/brianroberts1/Documents/GitHub/Web_Design_Challenge/Visualizations/Fig3.png" alt="" width="80%" height="80%"></a>
+          </div>
+          <div class="col col-12 col-md-6">
+            <h3>vs. Wind Speed</h3> 
+            <a href="vis_page_4.html"><img src="/Users/brianroberts1/Documents/GitHub/Web_Design_Challenge/Visualizations/Fig4.png" alt="" width="80%" height="80%"></a>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>
-                    Stock Data
-                </h1>
-                <hr>
-                <!--Insert Stock Data Table HTML Code Here-->
-                <hr>
-            </div>
-        </div>
+  </div>
+  <br>
+  <br>
+  <div>
+    <div class="row">
+      <div class="col col-12 divftr">© Copyright Brian Roberts & Trilogy Education Services 2020. All rights reserved.</div>
     </div>
+  </div>
+</body>
+</html>
