@@ -8,13 +8,13 @@ conn = psycopg2.connect("dbname=Project2_db user=postgres password=TRG19_sustain
 
 cursor1 = conn.cursor()
 cursor1.execute('SELECT * FROM supercharged')
-for row in cursor1:
-    print(row)
+#for row in cursor1:
+    #print(row)
 
 cursor2 = conn.cursor()
 cursor2.execute('SELECT * FROM tsla')
-for row in cursor2:
-    print(row)
+#for row in cursor2:
+#    print(row)
 
 app = Flask(__name__)
 
@@ -30,5 +30,20 @@ def read():
         id_list2.append(row)
     return render_template("index.html",id_list2=id_list2,id_list=id_list)
 
-if __name__ = "__main__":
+@app.route("/stock")
+def stock():
+    cursor1.execute('SELECT * FROM supercharged')
+    id_list2 =[]
+    for row in cursor2:
+        id_list2.append(row)
+    return render_template("index.html",id_list=id_list)
+@app.route("/charger")
+def charge():
+    cursor2.execute('SELECT * FROM tsla')
+    id_list2 =[]
+    for row in cursor2:
+        id_list2.append(row)
+    return render_template("index.html",id_list2=id_list2)
+
+if __name__ == "__main__":
     app.run(debug=True)
