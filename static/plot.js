@@ -18,7 +18,7 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Import data from an external CSV file
-d3.api("TSLA.csv").then(function(stockData) {
+d3.csv("static/TSLA.csv").then(function(stockData) {
   console.log(stockData);
   console.log([stockData]);
 
