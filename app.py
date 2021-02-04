@@ -1,20 +1,19 @@
+# Import Dependencies
 import warnings
 warnings.filterwarnings('ignore')
 
 from flask import Flask, jsonify, render_template
 import psycopg2
 
+
+# Establish Connection to the SQL Database
 conn = psycopg2.connect("dbname=Project2_db user=postgres password=TRG19_sustain port=6969")
 
 cursor1 = conn.cursor()
 cursor1.execute('SELECT * FROM supercharged')
-#for row in cursor1:
-    #print(row)
 
 cursor2 = conn.cursor()
 cursor2.execute('SELECT * FROM tsla')
-#for row in cursor2:
-#    print(row)
 
 app = Flask(__name__)
 
