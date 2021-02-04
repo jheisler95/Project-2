@@ -33,9 +33,9 @@ def read():
 @app.route("/stock")
 def stock():
     cursor1.execute('SELECT * FROM supercharged')
-    id_list2 =[]
+    id_list =[]
     for row in cursor2:
-        id_list2.append(row)
+        id_list.append(row)
     return render_template("index.html",id_list=id_list)
 @app.route("/charger")
 def charge():
