@@ -22,33 +22,38 @@ d3.csv("merged_data_final.csv").then(function(finalData) {
   console.log(finalData);
   console.log([finalData]);
 
+  //Create a function to parse date
+  var parseTime = d3.timeParse("%Y-%b-%d");
+
   // Format the data
   finalData.forEach(function(data) {
-    data.date = data.date;
+    data.date = parseTime(data.date);
     data.close = +data.close;
     data.index1 = +data.index1
   });
 
-  // Create scaling functions
+  // Create scaling function for the x-axis
   var xTimeScale = d3.scaleTime()
     .domain(d3.extent(finalData, d => d.date))
     .range([0, width]);
 
+  // Create scaling function for closing price
   var yLinearScale1 = d3.scaleLinear()
     .domain([0, d3.max(finalData, d => d.close)])
     .range([height, 0]);
 
+  // Create scaling function for new stations
   var yLinearScale2 = d3.scaleLinear()
     .domain([0, d3.max(finalData, d => d.index1)])
     .range([height, 0]);
 
-  // Create axis functions
+  // Create functions for the axes
   var bottomAxis = d3.axisBottom(xTimeScale)
-    .tickFormat(d3.timeFormat("%b-%d-%Y"));
+    .tickFormat(d3.timeFormat("%Y-%b-%d"));
   var leftAxis = d3.axisLeft(yLinearScale1);
   var rightAxis = d3.axisRight(yLinearScale2);
 
-  // Add x-axis
+  // Add x-axis to the bottom of the display
   chartGroup.append("g")
     .attr("transform", `translate(0, ${height})`)
     .call(bottomAxis);
@@ -77,25 +82,25 @@ d3.csv("merged_data_final.csv").then(function(finalData) {
 
   // Append a path for line1
   chartGroup.append("path")
-    .data(finalData)
-    .attr("d", (line1))
+    .data([finalData])
+    .attr("d", line1)
     .classed("line green", true);
 
   // Append a path for line2
   chartGroup.append("path")
-    .data(finalData)
-    .attr("d", (line2))
+    .data([finalData])
+    .attr("d", line2)
     .classed("line blue", true);
 
   // Append axes titles
   chartGroup.append("text")
-  .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
-    .classed("dow-text text", true)
+    .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
+    .classed("stock-text text", true)
     .text("Closing Stock Price (USD)");
 
   chartGroup.append("text")
-  .attr("transform", `translate(${width / 2}, ${height + margin.top + 37})`)
-    .classed("smurf-text text", true)
+    .attr("transform", `translate(${width / 2}, ${height + margin.top + 37})`)
+    .classed("charger-text text", true)
     .text("Number of New Charging Stations");
 }).catch(function(error) {
   console.log(error);
