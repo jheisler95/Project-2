@@ -23,7 +23,7 @@ d3.csv("merged_data_final.csv").then(function(finalData) {
   console.log([finalData]);
 
   //Create a function to parse date
-  var parseTime = d3.timeParse("%Y-%b-%d");
+  var parseTime = d3.timeParse("%Y-%m-%d");
 
   // Format the data
   finalData.forEach(function(data) {
@@ -49,7 +49,7 @@ d3.csv("merged_data_final.csv").then(function(finalData) {
 
   // Create functions for the axes
   var bottomAxis = d3.axisBottom(xTimeScale)
-    .tickFormat(d3.timeFormat("%Y-%b-%d"));
+    .tickFormat(d3.timeFormat("%m-%d-%Y"));
   var leftAxis = d3.axisLeft(yLinearScale1);
   var rightAxis = d3.axisRight(yLinearScale2);
 
