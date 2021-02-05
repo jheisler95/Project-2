@@ -1,77 +1,102 @@
-var margin = {top: 30, right: 40, bottom: 30, left: 50},
-    width = 600 - margin.left - margin.right,
-    height = 270 - margin.top - margin.bottom;
+// Chart Params
+var svgWidth = 800;
+var svgHeight = 500;
 
-var parseDate = d3.time.format("%d-%b-%y").parse;
+var margin = { top: 20, right: 40, bottom: 60, left: 50 };
 
-var x = d3.time.scale().range([0, width]);
-var y0 = d3.scale.linear().range([height, 0]);
-var y1 = d3.scale.linear().range([height, 0]);
+var width = svgWidth - margin.left - margin.right;
+var height = svgHeight - margin.top - margin.bottom;
 
-var xAxis = d3.svg.axis().scale(x)
-    .orient("bottom").ticks(5);
+// Create an SVG wrapper, append an SVG group that will hold our chart, and shift the SVG group by left and top margins.
+var svg = d3
+  .select("body")
+  .append("svg")
+  .attr("width", svgWidth)
+  .attr("height", svgHeight);
 
-var yAxisLeft = d3.svg.axis().scale(y0)
-    .orient("left").ticks(5);
+var chartGroup = svg.append("g")
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-var yAxisRight = d3.svg.axis().scale(y1)
-    .orient("right").ticks(5); 
+// Import data from the cleaned CSV file
+d3.csv("merged_data_final.csv").then(function(finalData) {
+  console.log(finalData);
+  console.log([finalData]);
 
-var valueline = d3.svg.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y0(d.close); });
-    
-var valueline2 = d3.svg.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y1(d.index1); });
-  
-var svg = d3.select("body")
-    .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-        .attr("transform", 
-              "translate(" + margin.left + "," + margin.top + ")");
+  // Format the data
+  finalData.forEach(function(data) {
+    data.date = data.date;
+    data.close = +data.close;
+    data.index1 = +data.index1
+  });
 
-// Get the data
-d3.csv("merged_data_final.csv", function(error, data) {
-    data.forEach(function(d) {
-        d.date = parseDate(d.date);
-        d.close = +d.close;
-        d.index1 = +d.index1;
-    });
+  // Create scaling functions
+  var xTimeScale = d3.scaleTime()
+    .domain(d3.extent(finalData, d => d.date))
+    .range([0, width]);
 
-    // Scale the range of the data
-    x.domain(d3.extent(data, function(d) { return d.date; }));
-    y0.domain([0, d3.max(data, function(d) {
-		return Math.max(d.close); })]); 
-    y1.domain([0, d3.max(data, function(d) { 
-		return Math.max(d.index1); })]);
+  var yLinearScale1 = d3.scaleLinear()
+    .domain([0, d3.max(finalData, d => d.close)])
+    .range([height, 0]);
 
-    // Add the valueline path.
-    svg.append("path")        
-        .attr("d", valueline(data));
+  var yLinearScale2 = d3.scaleLinear()
+    .domain([0, d3.max(finalData, d => d.index1)])
+    .range([height, 0]);
 
-    // Add the valueline2 path.
-    svg.append("path")        
-        .style("stroke", "red")
-        .attr("d", valueline2(data));
+  // Create axis functions
+  var bottomAxis = d3.axisBottom(xTimeScale)
+    .tickFormat(d3.timeFormat("%b-%d-%Y"));
+  var leftAxis = d3.axisLeft(yLinearScale1);
+  var rightAxis = d3.axisRight(yLinearScale2);
 
-    // Add the X Axis
-    svg.append("g")            
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+  // Add x-axis
+  chartGroup.append("g")
+    .attr("transform", `translate(0, ${height})`)
+    .call(bottomAxis);
 
-    svg.append("g")
-        .attr("class", "y axis")
-        .style("fill", "steelblue")
-        .call(yAxisLeft);	
+  // Add y1-axis to the left side of the display
+  chartGroup.append("g")
+    // Define the color of the axis text
+    .classed("green", true)
+    .call(leftAxis);
 
-    svg.append("g")				
-        .attr("class", "y axis")	
-        .attr("transform", "translate(" + width + " ,0)")	
-        .style("fill", "red")		
-        .call(yAxisRight);
+  // Add y2-axis to the right side of the display
+  chartGroup.append("g")
+    // Define the color of the axis text
+    .classed("blue", true)
+    .attr("transform", `translate(${width}, 0)`)
+    .call(rightAxis);
 
+  // Line generators for each line
+  var line1 = d3.line()
+    .x(d => xTimeScale(d.date))
+    .y(d => yLinearScale1(d.close));
+
+  var line2 = d3.line()
+    .x(d => xTimeScale(d.date))
+    .y(d => yLinearScale2(d.index1));
+
+  // Append a path for line1
+  chartGroup.append("path")
+    .data(finalData)
+    .attr("d", (line1))
+    .classed("line green", true);
+
+  // Append a path for line2
+  chartGroup.append("path")
+    .data(finalData)
+    .attr("d", (line2))
+    .classed("line blue", true);
+
+  // Append axes titles
+  chartGroup.append("text")
+  .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
+    .classed("dow-text text", true)
+    .text("Closing Stock Price (USD)");
+
+  chartGroup.append("text")
+  .attr("transform", `translate(${width / 2}, ${height + margin.top + 37})`)
+    .classed("smurf-text text", true)
+    .text("Number of New Charging Stations");
+}).catch(function(error) {
+  console.log(error);
 });

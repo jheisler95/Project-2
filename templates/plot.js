@@ -82,20 +82,20 @@ d3.csv("merged_data_final.csv").then(function(finalData) {
   // Append a path for line1
   chartGroup.append("path")
     .data([finalData])
-    .attr("d", line1)
+    .attr("d", (line1))
     .classed("line green", true);
 
   // Append a path for line2
   chartGroup.append("path")
     .data([finalData])
-    .attr("d", line2)
+    .attr("d", (line2))
     .classed("line blue", true);
 
   // Append axes titles
   chartGroup.append("text")
   .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
     .classed("dow-text text", true)
-    .text("Stock Price (USD)");
+    .text("Closing Stock Price (USD)");
 
   chartGroup.append("text")
   .attr("transform", `translate(${width / 2}, ${height + margin.top + 37})`)
