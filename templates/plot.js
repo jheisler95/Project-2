@@ -18,9 +18,11 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Import data from an external CSV file
-d3.api("TSLA.csv").then(function(stockData) {
+d3.api("clean_stock_data.csv").then(function(stockData) {
   console.log(stockData);
   console.log([stockData]);
+
+d3.api("clean_charger_data.csv").then(function(chargerData){
 
   // Create a function to parse date and time
   var parseTime = d3.timeParse("%d-%b-%Y");
@@ -40,9 +42,9 @@ d3.api("TSLA.csv").then(function(stockData) {
     .domain([0, d3.max(stockData, d => d.Close)])
     .range([height, 0]);
 
-  //var yChargerScale = d3.scaleLinear()  NEED CHARGER DATA HERE
-    //.domain([0, d3.max(stockData, d => d.stock_sightings)])
-    //.range([height, 0]);
+  var yChargerScale = d3.scaleLinear()
+    .domain([0, d3.max(stockData, d => d.stock_sightings)])
+    .range([height, 0]);
 
   // Create axis functions
   var bottomAxis = d3.axisBottom(xTimeScale)
@@ -81,7 +83,7 @@ d3.api("TSLA.csv").then(function(stockData) {
   chartGroup.append("path")
     .data([stockData])
     .attr("d", line1)
-    .classed("line green", true);
+    .classed("line red", true);
 
   // Append a path for line2
   chartGroup.append("path")
