@@ -1,5 +1,5 @@
 // Chart Params
-var svgWidth = 960;
+var svgWidth = 800;
 var svgHeight = 500;
 
 var margin = { top: 20, right: 40, bottom: 60, left: 50 };
@@ -18,39 +18,39 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Import data from an external CSV file
-d3.api("clean_stock_data.csv").then(function(stockData) {
-  console.log(stockData);
-  console.log([stockData]);
+d3.csv("merged_data_final.csv").then(function(finalData) {
+  console.log(finalData);
+  console.log([finalData]);
 
-d3.api("clean_charger_data.csv").then(function(chargerData){
 
   // Create a function to parse date and time
-  var parseTime = d3.timeParse("%d-%b-%Y");
+  var parseTime = d3.timeParse("%Y-%d-%b");
 
   // Format the data
-  stockData.forEach(function(data) {
-    data.Date = parseTime(data.Date);
-    data.Close = +data.Close;
+  finalData.forEach(function(data) {
+    data.date = data.date;
+    data.close = +data.close;
+    data.index1 = +data.index1
   });
 
   // Create scaling functions
   var xTimeScale = d3.scaleTime()
-    .domain(d3.extent(stockData, d => d.Date))
+    .domain(d3.extent(finalData, d => d.date))
     .range([0, width]);
 
-  var yStockScale = d3.scaleLinear()
-    .domain([0, d3.max(stockData, d => d.Close)])
+  var yLinearScale1 = d3.scaleLinear()
+    .domain([0, d3.max(finalData, d => d.close)])
     .range([height, 0]);
 
-  var yChargerScale = d3.scaleLinear()
-    .domain([0, d3.max(stockData, d => d.stock_sightings)])
+  var yLinearScale2 = d3.scaleLinear()
+    .domain([0, d3.max(finalData, d => d.index1)])
     .range([height, 0]);
 
   // Create axis functions
   var bottomAxis = d3.axisBottom(xTimeScale)
-    .tickFormat(d3.timeFormat("%d-%b-%Y"));
-  var leftAxis = d3.axisLeft(yStockScale);
-  var rightAxis = d3.axisRight(yChargerScale);
+    .tickFormat(d3.timeFormat("%b-%d-%Y"));
+  var leftAxis = d3.axisLeft(yLinearScale1);
+  var rightAxis = d3.axisRight(yLinearScale2);
 
   // Add x-axis
   chartGroup.append("g")
@@ -72,22 +72,22 @@ d3.api("clean_charger_data.csv").then(function(chargerData){
 
   // Line generators for each line
   var line1 = d3.line()
-    .x(d => xTimeScale(d.Date))
-    .y(d => yLinearScale1(d.Close));
+    .x(d => xTimeScale(d.date))
+    .y(d => yLinearScale1(d.close));
 
   var line2 = d3.line()
-    .x(d => xTimeScale(d.Date))
-    .y(d => yLinearScale2(d.Chargers));
+    .x(d => xTimeScale(d.date))
+    .y(d => yLinearScale2(d.index1));
 
   // Append a path for line1
   chartGroup.append("path")
-    .data([stockData])
+    .data([finalData])
     .attr("d", line1)
-    .classed("line red", true);
+    .classed("line green", true);
 
   // Append a path for line2
   chartGroup.append("path")
-    .data([stockData])
+    .data([finalData])
     .attr("d", line2)
     .classed("line blue", true);
 
@@ -95,12 +95,12 @@ d3.api("clean_charger_data.csv").then(function(chargerData){
   chartGroup.append("text")
   .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
     .classed("dow-text text", true)
-    .text("Stock Price (usd)");
+    .text("Stock Price (USD)");
 
   chartGroup.append("text")
   .attr("transform", `translate(${width / 2}, ${height + margin.top + 37})`)
     .classed("smurf-text text", true)
-    .text("Number of Supercharging Stations");
+    .text("Number of New Charging Stations");
 }).catch(function(error) {
   console.log(error);
 });

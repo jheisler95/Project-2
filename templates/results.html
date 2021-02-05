@@ -1,5 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+
+    body { font: 12px Arial;}
+    
+    path { 
+        stroke: steelblue;
+        stroke-width: 2;
+        fill: none;
+    }
+    
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: grey;
+        stroke-width: 1;
+        shape-rendering: crispEdges;
+    }
+    
+</style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +33,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="static/style.css">
+    <!--<link rel="stylesheet" href="static/style.css">-->
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -53,9 +72,10 @@
         <br>
         <h1>Stock vs. New Stations</h1>
         <hr>
-        <script src="https://d3js.org/d3.v6.min.js"></script>
-        <script src="/templates/plot.js"></script>
-        <p>Click any plot to get an in-depth analysis.</p>
+        <link rel="stylesheet" href="plot_style.css">
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="plot.js"></script>
+        
         <div class="row">
         </div>
       </div>
