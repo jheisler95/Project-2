@@ -104,7 +104,7 @@ d3.csv("merged_data_final2.csv").then(function(finalData) {
     .text("Number of New Charging Stations");
 
   // Find the closest X index of the mouse  
-  var bisect = d3.bisector(function(b) { return b.xTimeScale;}).left;
+  var bisect = d3.bisector(function(d) { return d.xTimeScale; }).left;
 
   // Create a circle to travel along the curve of the plot
   var focus = chartGroup.append('g').append('circle').style("fill", "none").attr('r', 5).style("opacity", 0)
@@ -119,7 +119,7 @@ d3.csv("merged_data_final2.csv").then(function(finalData) {
   function mouseover() {
     focus.style("opacity", 1)
     focusText.style("opacity",1)
-  }
+  };
   
   function mousemove() {
     // recover coordinate we need
@@ -130,8 +130,8 @@ d3.csv("merged_data_final2.csv").then(function(finalData) {
       .attr("cx", xTimeScale(selectedData.date))
       .attr("cy", yLinearScale1(selectedData.close))
     focusText
-      .html("date:" + selectedData.date + "  -  " + "close:" + selectedData.close)
-      .attr("date", xTimeScale(selectedData.date)+15)
+      .html("date:" + selectedData.date + " / " + "close:" + selectedData.close)
+      .attr("date", xTimeScale(selectedData.date))
       .attr("close", yLinearScale1(selectedData.close))
     }
   function mouseout() {
