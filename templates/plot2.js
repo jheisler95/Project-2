@@ -141,7 +141,6 @@ d3.csv("merged_data_final2.csv").then(function(finalData) {
   
 
 
-
 }).catch(function(error) {
   console.log(error);
 });
