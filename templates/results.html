@@ -14,11 +14,11 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="static/style.css">
+    <!--<link rel="stylesheet" href="static/style.css">-->
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.html">Home</a>
+        <a class="navbar-brand" href="index.html">Homepage</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -51,9 +51,11 @@
     <div class="row">
       <div class="col col-12">
         <br>
-        <h1>Stock vs. New Stations</h1>
+        <h1>Closing Price vs. New Stations</h1>
         <hr>
-        <p>Click any plot to get an in-depth analysis.</p>
+        <link rel="stylesheet" href="plot_style.css">
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="plot2.js"></script>
         <div class="row">
         </div>
       </div>
@@ -63,7 +65,9 @@
   <br>
   <div>
     <div class="row">
-      <div class="col col-12 divftr"></div>
+      <div class="col col-12 divftr">
+        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1Cgo4m55ugpRRf5Hhko-vLgNWxt4K4e8D" width="640" height="480"></iframe>
+      </div>
     </div>
   </div>
 </body>
